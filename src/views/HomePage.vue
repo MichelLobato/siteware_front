@@ -1,5 +1,3 @@
-import { RouterLink } from 'vue-router';
-
 <template>
   <div>
     <h1 class="title">Página Inicial</h1>
@@ -9,16 +7,22 @@ import { RouterLink } from 'vue-router';
     <RouterLink to="/product-list">
       <button>Acessar Product List</button>
     </RouterLink>
+    <RouterLink to="/product-store">
+      <button>Acessar Product Store</button>
+    </RouterLink>
   </div>
 </template>
-  
+
+<script>
+import { RouterLink } from 'vue-router';
+
 export default {
-  // Componente da página inicial
   components: {
     RouterLink,
   },
 };
-  
-  <style>
-  /* Estilos para a página inicial */
-  </style>
+</script>
+
+<style>
+/* Estilos para a página inicial */
+</style>
