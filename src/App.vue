@@ -1,32 +1,21 @@
 <template>
-  <div>
-    <h1 class="title">Adicionar Produto</h1>
-    <ProductForm />
+  <div id="app">
+    <HomePage /> <!-- Include the "HomePage" component here -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import ProductForm from './components/ProductForm.vue';
+import HomePage from '@/views/HomePage.vue';
 
 export default {
+  name: 'App',
   components: {
-    ProductForm,
+    HomePage,
   },
 };
 </script>
 
 <style>
-.container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.title {
-  text-align: center;
-  margin-bottom: 20px;
-}
+/* Styles for the App component */
 </style>
