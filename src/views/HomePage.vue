@@ -10,6 +10,9 @@
     <RouterLink to="/product-store">
       <button>Acessar Product Store</button>
     </RouterLink>
+    <RouterLink to="/cadastro">
+      <button>Acessar Cadastro de Usuario</button>
+    </RouterLink>
   </div>
 </template>
 

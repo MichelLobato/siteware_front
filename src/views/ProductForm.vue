@@ -2,11 +2,11 @@
   <form class="product-form" @submit.prevent="submitForm">
     <div class="form-group">
       <label for="nome">Nome:</label>
-      <input type="text" id="nome" v-model="product.nome" :readonly="isEdit">
+      <input type="text" id="nome" v-model="product.nome" :readonly="isEdit" />
     </div>
     <div class="form-group">
       <label for="preco">Preço:</label>
-      <input type="number" id="preco" v-model="product.preco" required>
+      <input type="number" id="preco" v-model="product.preco" required />
     </div>
     <div class="form-group">
       <label for="promocao">Promoção:</label>
@@ -16,22 +16,27 @@
         <option value="TRES_POR_DEZ">3 POR 10</option>
       </select>
     </div>
-    <button type="submit">{{ isEdit ? 'Atualizar' : 'Adicionar' }}</button>
+    <button type="submit">{{ isEdit ? "Atualizar" : "Adicionar" }}</button>
+    <div v-if="error" class="error-message">
+      Ocorreu um erro produto ja {{ isEdit ? "atualizar" : "adicionado" }} na nossa Base. Por
+      favor, tente novamente.
+    </div>  
   </form>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
     return {
       product: {
-        nome: '',
+        nome: "",
         preco: 0,
-        promocao: 'NENHUMA_PROMOCAO',
+        promocao: "NENHUMA_PROMOCAO",
         ativo: true,
       },
+      error: null,
     };
   },
   computed: {
@@ -42,12 +47,13 @@ export default {
   mounted() {
     if (this.isEdit) {
       const productId = this.$route.params.productId;
-      axios.get(`http://localhost:8080/produtos/${productId}`)
-        .then(response => {
+      axios
+        .get(`http://localhost:8080/produtos/${productId}`)
+        .then((response) => {
           this.product = response.data;
         })
-        .catch(error => {
-          console.error('Erro ao obter os dados do produto:', error);
+        .catch((error) => {
+          console.error("Erro ao obter os dados do produto:", error);
         });
     }
   },
@@ -64,24 +70,28 @@ export default {
       const productId = this.$route.params.productId;
       const url = `http://localhost:8080/produtos/${productId}`;
 
-      axios.put(url, this.product)
-        .then(response => {
-          console.log('Produto atualizado com sucesso:', response.data);
-          this.$router.push('/product-list');
+      axios
+        .put(url, this.product)
+        .then((response) => {
+          console.log("Produto atualizado com sucesso:", response.data);
+          this.$router.push("/product-list");
         })
-        .catch(error => {
-          console.error('Erro ao atualizar o produto:', error);
+        .catch((error) => {
+          console.error("Erro ao atualizar o produto:", error);
         });
     },
 
     addProduct() {
-      axios.post('http://localhost:8080/produtos', this.product)
-        .then(response => {
-          console.log('Produto adicionado com sucesso:', response.data);
-          this.$router.push('/product-list');
+      axios
+        .post("http://localhost:8080/produtos", this.product)
+        .then((response) => {
+          console.log("Produto adicionado com sucesso:", response.data);
+          this.$router.push("/product-list");
         })
-        .catch(error => {
-          console.error('Erro ao adicionar o produto:', error);
+        .catch((error) => {
+          console.error("Erro ao adicionar o produto:", error);
+          this.error =
+            "Produto ja cadastrado na base de dados. Por favor adicionar outro produto!";
         });
     },
   },
