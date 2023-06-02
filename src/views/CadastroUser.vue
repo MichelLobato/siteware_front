@@ -53,6 +53,7 @@
 
 <script>
 import axios from "axios";
+axios.defaults.baseURL = 'http://172.16.4.63:8080/';
 
 export default {
   data() {
@@ -63,7 +64,7 @@ export default {
   methods: {
     salvarUsuario() {
       axios
-        .post("http://localhost:8080/users", {
+        .post("users", {
           nome: this.nome,
           email: this.email,
           password: this.password,
@@ -79,7 +80,7 @@ export default {
           };
 
           axios
-            .post("http://localhost:8080/carrinhos", carrinho)
+            .post("carrinhos", carrinho)
             .then((response) => {
               console.log("Carrinho de compras criado:", response.data);
 

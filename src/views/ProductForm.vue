@@ -26,6 +26,7 @@
 
 <script>
 import axios from "axios";
+axios.defaults.baseURL = 'http://172.16.4.63:8080/';
 
 export default {
   data() {
@@ -48,7 +49,7 @@ export default {
     if (this.isEdit) {
       const productId = this.$route.params.productId;
       axios
-        .get(`http://localhost:8080/produtos/${productId}`)
+        .get(`produtos/${productId}`)
         .then((response) => {
           this.product = response.data;
         })
@@ -68,7 +69,7 @@ export default {
 
     updateProduct() {
       const productId = this.$route.params.productId;
-      const url = `http://localhost:8080/produtos/${productId}`;
+      const url = `produtos/${productId}`;
 
       axios
         .put(url, this.product)
@@ -83,7 +84,7 @@ export default {
 
     addProduct() {
       axios
-        .post("http://localhost:8080/produtos", this.product)
+        .post("produtos", this.product)
         .then((response) => {
           console.log("Produto adicionado com sucesso:", response.data);
           this.$router.push("/product-list");

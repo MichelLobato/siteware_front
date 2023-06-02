@@ -27,6 +27,7 @@
 
 
 <script>
+
 export default {
   data() {
     return {
@@ -34,7 +35,7 @@ export default {
     };
   },
   mounted() {
-    fetch('http://localhost:8080/produtos/ativos')
+    fetch('http://172.16.4.63:8080/produtos/ativos')
       .then(response => response.json())
       .then(data => {
         this.products = data;
@@ -48,7 +49,7 @@ export default {
       this.$router.push(`/product-form/${product.id}`);
     },
     removeProduct(product) {
-      const url = `http://localhost:8080/produtos/${product.id}`;
+      const url = `http://172.16.4.63:8080/produtos/${product.id}`;
 
       fetch(url, {
         method: 'DELETE'
