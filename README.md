@@ -1,24 +1,22 @@
-# ecommerce
+# Ecommerce
 
-## Project setup
-```
-npm install
-```
+## Descrição
+Ecommerce é uma aplicação Vue.js para criação de uma loja online. Esta aplicação utiliza Vue Router para navegação entre páginas e Axios para fazer requisições HTTP. 
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Instalação
+1. Certifique-se de ter o Node.js instalado em sua máquina.
+2. Clone este repositório: `git clone https://github.com/seu-usuario/ecommerce.git`
+3. Acesse o diretório do projeto: `cd siteware_front`
+4. Instale as dependências: `npm install`
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Uso
+Para iniciar a aplicação em um ambiente de desenvolvimento, utilize o seguinte comando:
+`npm run serve`
 
-### Lints and fixes files
-```
-npm run lint
-```
+Acesse a aplicação no seu navegador em `http://localhost:4200`.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Build
+Para criar uma versão otimizada da aplicação para produção, utilize o seguinte comando:
+
+
+
