@@ -1,26 +1,15 @@
 version: '3'
 services:
-  ecommerce-backend:
-    build:
-      context: .
-      dockerfile: Dockerfile-backend
-    ports:
-      - 8080:8080
-    networks:
-      - ecommerce-network
-
   ecommerce-frontend:
     build:
       context: .
-      dockerfile: Dockerfile-frontend
+      dockerfile: Dockerfile
     ports:
       - 4200:4200
     networks:
-      - ecommerce-network
+      - siteware_ecommerce-network
 
 networks:
-  ecommerce-network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
+  siteware_ecommerce-network:
+    external:
+      name: siteware_ecommerce-network
