@@ -10,12 +10,7 @@
           <div class="produto-preco">R$ {{ produto.preco.toFixed(2) }}</div>
           <div class="produto-promocao">{{ produto.promocao }}</div>
           <div class="produto-quantidade">
-            <input
-              type="number"
-              v-model="produto.quantidade"
-              min="1"
-              max="100"
-            />
+            <input type="number" v-model="produto.quantidade" min="1" max="100" />
           </div>
           <button @click="adicionarAoCarrinho(produto)">
             Adicionar ao Carrinho
@@ -36,10 +31,8 @@
             Fechar Compra
           </button>
           <div class="valor-total">
-            <strong
-              >Valor Total do Carrinho: R$
-              {{ carrinho.valorTotal.toFixed(2) }}</strong
-            >
+            <strong>Valor Total do Carrinho: R$
+              {{ carrinho.valorTotal.toFixed(2) }}</strong>
           </div>
         </div>
       </div>
@@ -168,8 +161,9 @@ export default {
       // Lógica para fechar a compra
       console.log("Compra fechada!");
 
-      // Redirecionar para a página de checkout ou outra página relevante
-      this.$router.push("/checkout");
+      // Redirecionar para a página de fechamento da compra
+      const carrinhoId = this.$route.query.carrinhoId;
+      this.$router.push({ name: 'FechamentoCompra', params: { carrinhoId } });
     },
   },
 };
