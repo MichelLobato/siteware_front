@@ -5,7 +5,7 @@ Ecommerce é uma aplicação Vue.js para criação de uma loja online. Esta apli
 
 ## Instalação
 1. Certifique-se de ter o Node.js instalado em sua máquina.
-2. Clone este repositório: `git clone https://github.com/seu-usuario/ecommerce.git`
+2. Clone este repositório: `git clone [https://github.com/seu-usuario/ecommerce.git](https://github.com/MichelLobato/siteware_front.git)`
 3. Acesse o diretório do projeto: `cd siteware_front`
 4. Instale as dependências: `npm install`
 
