@@ -42,7 +42,6 @@
   
 <script>
 import axios from "axios";
-axios.defaults.baseURL = 'http://172.16.4.63:8080/';
 
 export default {
   data() {
@@ -58,7 +57,7 @@ export default {
     if (carrinhoId) {
       // Faça uma requisição GET para buscar o carrinho pelo ID
       axios
-        .get(`carrinhos/${carrinhoId}`)
+        .get(`http://localhost:8080/carrinhos/${carrinhoId}`)
         .then((response) => {
           const carrinho = response.data;
           // Use o carrinho carregado como necessário na página
@@ -68,7 +67,7 @@ export default {
           console.error("Erro ao carregar o carrinho:", error);
         });
     }
-    fetch("http://172.16.4.63:8080/produtos/ativos")
+    fetch("http://localhost:8080/produtos/ativos")
       .then((response) => response.json())
       .then((produtos) => {
         this.produtos = produtos.map((produto) => ({
@@ -129,7 +128,7 @@ export default {
 
       axios
         .post(
-          `produtoscarrinhos/${carrinhoId}`,
+          `http://localhost:8080/produtoscarrinhos/${carrinhoId}`,
           requestBody
         )
         .then(() => {
@@ -145,7 +144,7 @@ export default {
     },
     atualizarValorFinalCarrinho(carrinhoId) {
       axios
-        .get(`carrinhos/${carrinhoId}`)
+        .get(`http://localhost:8080/carrinhos/${carrinhoId}`)
         .then((response) => {
           console.log("Carrinho", carrinhoId);
           const carrinho = response.data;

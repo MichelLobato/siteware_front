@@ -53,7 +53,6 @@
 
 <script>
 import axios from "axios";
-axios.defaults.baseURL = 'http://172.16.4.63:8080/';
 
 export default {
   data() {
@@ -64,7 +63,7 @@ export default {
   methods: {
     salvarUsuario() {
       axios
-        .post("users", {
+        .post("http://localhost:8080/users", {
           nome: this.nome,
           email: this.email,
           password: this.password,
@@ -80,12 +79,12 @@ export default {
           };
 
           axios
-            .post("carrinhos", carrinho)
+            .post("http://localhost:8080/carrinhos", carrinho)
             .then((response) => {
               console.log("Carrinho de compras criado:", response.data);
 
               // Navegar para a página ProductStore.vue
-              this.$router.push({ path: "product-store", query: { carrinhoId: response.data.id } });
+              this.$router.push({ path: "/product-store", query: { carrinhoId: response.data.id } });
             })
             .catch((error) => {
               console.error("Erro ao criar o carrinho de compras:", error);
