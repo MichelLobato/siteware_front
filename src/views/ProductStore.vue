@@ -10,7 +10,12 @@
           <div class="produto-preco">R$ {{ produto.preco.toFixed(2) }}</div>
           <div class="produto-promocao">{{ produto.promocao }}</div>
           <div class="produto-quantidade">
-            <input type="number" v-model="produto.quantidade" min="1" max="100" />
+            <input
+              type="number"
+              v-model="produto.quantidade"
+              min="1"
+              max="100"
+            />
           </div>
           <button @click="adicionarAoCarrinho(produto)">
             Adicionar ao Carrinho
@@ -21,13 +26,20 @@
         <h2>Carrinho</h2>
         <ul>
           <li v-for="item in itensSelecionados" :key="item.id">
-            {{ item.nome }} - R$ {{ item.preco.toFixed(2) }} - Quantidade: {{ item.quantidade }}
+            {{ item.nome }} - R$ {{ item.preco.toFixed(2) }} - Quantidade:
+            {{ item.quantidade }}
+            <button @click="removerItem(item)">X</button>
           </li>
         </ul>
         <div v-if="fecharCompraVisivel">
-          <button @click="fecharCompra" class="fechar-compra-button">Fechar Compra</button>
+          <button @click="fecharCompra" class="fechar-compra-button">
+            Fechar Compra
+          </button>
           <div class="valor-total">
-            <strong>Valor Total do Carrinho: R$ {{ carrinho.valorTotal.toFixed(2) }}</strong>
+            <strong
+              >Valor Total do Carrinho: R$
+              {{ carrinho.valorTotal.toFixed(2) }}</strong
+            >
           </div>
         </div>
       </div>
@@ -36,7 +48,7 @@
 </template>
   
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
@@ -44,14 +56,15 @@ export default {
       carrinho: { valorTotal: 0 },
       produtos: [],
       itensSelecionados: [],
-      fecharCompraVisivel: false
+      fecharCompraVisivel: false,
     };
   },
   mounted() {
     const carrinhoId = this.$route.query.carrinhoId;
     if (carrinhoId) {
       // Faça uma requisição GET para buscar o carrinho pelo ID
-      axios.get(`http://localhost:8080/carrinhos/${carrinhoId}`)
+      axios
+        .get(`http://localhost:8080/carrinhos/${carrinhoId}`)
         .then((response) => {
           const carrinho = response.data;
           // Use o carrinho carregado como necessário na página
@@ -61,7 +74,7 @@ export default {
           console.error("Erro ao carregar o carrinho:", error);
         });
     }
-    fetch('http://localhost:8080/produtos/ativos')
+    fetch("http://localhost:8080/produtos/ativos")
       .then((response) => response.json())
       .then((produtos) => {
         this.produtos = produtos.map((produto) => ({
@@ -70,16 +83,43 @@ export default {
         }));
       })
       .catch((error) => {
-        console.log('Erro ao obter os produtos:', error);
+        console.log("Erro ao obter os produtos:", error);
       });
-
   },
   methods: {
     adicionarAoCarrinho(produto) {
       const carrinhoId = this.$route.query.carrinhoId;
-      console.log('carrinhoId:', carrinhoId);
-      console.log('Produto adicionado ao carrinho:', produto);
+      console.log("carrinhoId:", carrinhoId);
+      console.log("Produto adicionado ao carrinho:", produto);
 
+      // Verificar se o produto já existe na lista
+      const produtoExistente = this.itensSelecionados.find(
+        (item) => item.id === produto.id
+      );
+      if (!produtoExistente) {
+        this.itensSelecionados.push(produto);
+      }
+
+      this.fecharCompraVisivel = true;
+
+      // Chamar o método para enviar a requisição HTTP
+      this.enviarRequisicao(carrinhoId, produto);
+    },
+
+    removerItem(item) {
+      const index = this.itensSelecionados.indexOf(item);
+      if (index !== -1) {
+        this.itensSelecionados.splice(index, 1);
+      }
+      item.quantidade = 0;
+
+      const carrinhoId = this.$route.query.carrinhoId;
+      const produtoCarrinho = item;
+
+      this.enviarRequisicao(carrinhoId, produtoCarrinho);
+    },
+
+    enviarRequisicao(carrinhoId, produto) {
       const requestBody = {
         quantidade: produto.quantidade,
         preco: null,
@@ -88,22 +128,24 @@ export default {
           nome: "null",
           preco: null,
           promocao: null,
-          ativo: null
+          ativo: null,
         },
-        subTotal: null
+        subTotal: null,
       };
 
-      axios.post(`http://localhost:8080/produtoscarrinhos/${carrinhoId}`, requestBody)
+      axios
+        .post(
+          `http://localhost:8080/produtoscarrinhos/${carrinhoId}`,
+          requestBody
+        )
         .then(() => {
-          console.log('Requisição bem-sucedida');
-          this.itensSelecionados.push(produto);
-          this.fecharCompraVisivel = true;
+          console.log("Requisição bem-sucedida");
 
           // Após adicionar o produto, chame o método para atualizar o valor final do carrinho
           this.atualizarValorFinalCarrinho(carrinhoId);
         })
         .catch((error) => {
-          console.error('Erro ao fazer a requisição:', error);
+          console.error("Erro ao fazer a requisição:", error);
           // Lógica de tratamento de erro
         });
     },
@@ -111,14 +153,14 @@ export default {
       axios
         .get(`http://localhost:8080/carrinhos/${carrinhoId}`)
         .then((response) => {
-          console.log('Carrinho', carrinhoId);
+          console.log("Carrinho", carrinhoId);
           const carrinho = response.data;
           const valorTotal = carrinho.valorFinal;
-          console.log('Valor final do carrinho:', valorTotal);
+          console.log("Valor final do carrinho:", valorTotal);
           this.carrinho = { ...carrinho, valorTotal }; // Atualize o valor total do carrinho
         })
         .catch((error) => {
-          console.error('Erro ao obter o valor final do carrinho:', error);
+          console.error("Erro ao obter o valor final do carrinho:", error);
           // Lógica de tratamento de erro
         });
     },
