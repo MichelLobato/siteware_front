@@ -75,7 +75,7 @@ export default {
         .put(url, this.product)
         .then((response) => {
           console.log("Produto atualizado com sucesso:", response.data);
-          this.$router.push("/product-list");
+          this.$router.push("product-list");
         })
         .catch((error) => {
           console.error("Erro ao atualizar o produto:", error);
@@ -87,7 +87,7 @@ export default {
         .post("produtos", this.product)
         .then((response) => {
           console.log("Produto adicionado com sucesso:", response.data);
-          this.$router.push("/product-list");
+          this.$router.push("product-list");
         })
         .catch((error) => {
           console.error("Erro ao adicionar o produto:", error);

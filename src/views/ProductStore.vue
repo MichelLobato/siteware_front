@@ -68,7 +68,7 @@ export default {
           console.error("Erro ao carregar o carrinho:", error);
         });
     }
-    fetch("produtos/ativos")
+    fetch("http://172.16.4.63:8080/produtos/ativos")
       .then((response) => response.json())
       .then((produtos) => {
         this.produtos = produtos.map((produto) => ({

@@ -85,7 +85,7 @@ export default {
               console.log("Carrinho de compras criado:", response.data);
 
               // Navegar para a página ProductStore.vue
-              this.$router.push({ path: "/product-store", query: { carrinhoId: response.data.id } });
+              this.$router.push({ path: "product-store", query: { carrinhoId: response.data.id } });
             })
             .catch((error) => {
               console.error("Erro ao criar o carrinho de compras:", error);

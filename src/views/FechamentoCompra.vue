@@ -53,7 +53,7 @@ export default {
     const carrinhoId = this.$route.params.carrinhoId;
     this.carrinhoId = carrinhoId;
 
-    axios.get(`http://localhost:8080/carrinhos/${carrinhoId}`)
+    axios.get(`http://172.16.4.63:8080/carrinhos/${carrinhoId}`)
       .then(response => {
         this.carrinho = response.data;
       })
